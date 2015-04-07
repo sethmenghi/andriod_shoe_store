@@ -1,0 +1,62 @@
+[
+    {
+        "name": "Sperry Topsiders",
+        "color": "Blue",
+        "image": "sperry_top",
+        "price": 50
+    },
+    {
+        "name": "Polo Ralph Lauren Fabian Slip-On Sneaker",
+        "color": "Orange",
+        "image": "polo",
+        "price": 45
+    },
+    {
+        "name": "Vans Atwood Digital Camo",
+        "color": "Camo",
+        "image": "vans",
+        "price": 50
+    },
+    {
+        "name": "Converse Chuck Taylor All Star Sneaker",
+        "color": "Red",
+        "image": "converse",
+        "price": 50
+    },
+    {
+        "name": "Nike Reax Run 9 Performance Running Shoe",
+        "color": "Grey, Orange",
+        "image": "nike_run",
+        "price": 85
+    },
+    {
+        "name": "Nike Flex Experience Run 3 Lightweight Running Shoe",
+        "color": "Blue",
+        "image": "nike_flex",
+        "price": 60
+    },
+    {
+        "name": "Margaritaville Mirage Sandal",
+        "color": "Brown",
+        "image": "sandal",
+        "price": 40
+    },
+    {
+        "name": "Clarks Bushacre Chukka Boot",
+        "color": "Brown",
+        "image": "clarks_chukka",
+        "price": 80
+    },
+    {
+        "name": "Georgia Boot 6in Steel Toe Boot",
+        "color": "Brown",
+        "image": "steel_toe",
+        "price": 120
+    },
+    {
+        "name": "Kenneth Cole Funny Jo-ke Penny Loafer",
+        "color": "Light Brown",
+        "image": "kenneth_cole",
+        "price": 100
+    }
+]

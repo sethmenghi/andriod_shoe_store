@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color">#555555</color>
+    <color name="price">#777777</color>
+    <color name="listDivider">#d8d8d8d8</color>
+    <color name="listRowColor">#ffffff</color>
+</resources>

@@ -1,0 +1,60 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activityHorizontalMargin"
+    android:paddingRight="@dimen/activityHorizontalMargin"
+    android:paddingTop="@dimen/activityVerticalMargin"
+    android:paddingBottom="@dimen/activityVerticalMargin" tools:context=".MainActivity"
+    android:background="#ff5be539"
+    android:id="@+id/welcomeScreen">
+
+    <TextView
+        android:id="@+id/welcomeText"
+        android:text="@string/welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="50sp"
+        android:textColor="#ffffffff"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+    />
+
+    <EditText
+        android:id="@+id/searchInput"
+        android:textSize="15sp"
+        android:hint="@string/searchText"
+        android:layout_height="40dp"
+        android:layout_width="150dp"
+        android:paddingLeft="10dp"
+        android:singleLine="true"
+        android:background="@drawable/edit_text_background"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/welcomeText"
+        android:layout_alignStart="@+id/welcomeText" />
+
+    <Button
+        android:id="@+id/searchButton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/searchButton"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/searchInput"
+        android:layout_toEndOf="@+id/searchInput" />
+
+    <Button
+        android:id="@+id/viewAllButton"
+        style="?android:attr/buttonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/viewAllButton"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/searchButton"
+        android:layout_centerHorizontal="true" />
+
+
+</RelativeLayout>
