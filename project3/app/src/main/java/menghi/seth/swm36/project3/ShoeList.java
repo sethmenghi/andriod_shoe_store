@@ -21,8 +21,12 @@ public class ShoeList {
      * @param jsonString
      */
     public ShoeList(String jsonString){
-        jsonShoeString = jsonString;
-        loadShoesFromString();
+        if (jsonString != "") {
+            jsonShoeString = jsonString;
+            loadShoesFromString();
+        } else {
+            shoes.add(new Shoe("","","",0));
+        }
     }
 
     /**
@@ -92,6 +96,19 @@ public class ShoeList {
         }
 
         return found;
+    }
+
+    public Shoe getShoeFromImage(String imgString) {
+        for (int i = 0; i < shoes.size(); i++){
+            if(imgString == shoes.get(i).image){
+                return shoes.get(i);
+            }
+        }
+        return null;
+    }
+
+    public ArrayList<Shoe> getEmptyList(){
+        return new ArrayList<Shoe>();
     }
 
     public List<Shoe> getShoeList(){

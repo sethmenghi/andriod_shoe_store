@@ -24,22 +24,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class SearchActivity extends ListActivity {
-    EditText inputSearch;
+public class SearchActivity extends Activity {
     private List<Shoe> shoes = new ArrayList<Shoe>();
-    private ListView listView;
-    private ShoeListAdapter adapter;
-    private int _xDelta;
-    private int _yDelta;
+    private List<Shoe> shoesInCart = new ArrayList<Shoe>();
+    private ShoeList shoeList;
+
+    private ListView searchList;
+    private ListView cartList;
+
+    private ShoeListAdapter searchAdapter;
+    private ShoeListAdapter cartAdapter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        listView = (ListView) findViewById(android.R.id.list);
-        handleIntent(getIntent());
+        searchList = (ListView) findViewById(R.id.searchList);
+        cartList = (ListView) findViewById(R.id.cartList);
 
+        handleIntent(getIntent());
     }
 
     @Override
@@ -50,7 +55,7 @@ public class SearchActivity extends ListActivity {
     private void handleIntent(Intent intent) {
         String searched = intent.getStringExtra("searched");
         String jsonString = intent.getStringExtra("shoes");
-        ShoeList shoeList = new ShoeList(jsonString);
+        shoeList = new ShoeList(jsonString);
 
         if (searched == null) {
             // Display all shoes, no query made
@@ -60,20 +65,52 @@ public class SearchActivity extends ListActivity {
             // Only get searched shoes
             shoes = shoeList.searchName(searched);
         }
-        adapter = new ShoeListAdapter(this, shoes);
-        listView.setAdapter(adapter);
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        searchAdapter = new ShoeListAdapter(this, shoes);
+        searchList.setAdapter(searchAdapter);
+
+        cartAdapter = new ShoeListAdapter(this, shoesInCart);
+        cartList.setAdapter(cartAdapter);
+
+
+        searchList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                String value = adapter.getItem(position).name;
+                String value = searchAdapter.getItem(position).name;
                 ClipData.Item item = new ClipData.Item((CharSequence) value);
-                String[] mimeType =  {ClipDescription.MIMETYPE_TEXT_PLAIN};
+                String[] mimeType = {ClipDescription.MIMETYPE_TEXT_PLAIN};
                 View.DragShadowBuilder shadow = new View.DragShadowBuilder(view);
-                ClipData clip = new ClipData((CharSequence)value, mimeType, item);
+                ClipData clip = new ClipData((CharSequence) value, mimeType, item);
                 view.startDrag(clip, shadow, view, 0);
                 //view.setVisibility(View.INVISIBLE);
+                shoesInCart.add(shoes.get(position));
+                shoes.remove(shoes.get(position));
+                cartAdapter.updateShoeList(shoesInCart);
+                searchAdapter.updateShoeList(shoes);
+                searchList.invalidateViews();
+                cartList.invalidateViews();
                 return true;
             }
         });
+
+        cartList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                String value = cartAdapter.getItem(position).name;
+                ClipData.Item item = new ClipData.Item((CharSequence) value);
+                String[] mimeType = {ClipDescription.MIMETYPE_TEXT_PLAIN};
+                View.DragShadowBuilder shadow = new View.DragShadowBuilder(view);
+                ClipData clip = new ClipData((CharSequence) value, mimeType, item);
+                view.startDrag(clip, shadow, view, 0);
+                //view.setVisibility(View.INVISIBLE);
+                shoes.add(shoesInCart.get(position));
+                shoesInCart.remove(shoesInCart.get(position));
+                cartAdapter.updateShoeList(shoesInCart);
+                searchAdapter.updateShoeList(shoes);
+                searchList.invalidateViews();
+                cartList.invalidateViews();
+                return true;
+            }
+        });
+
     }
 }
