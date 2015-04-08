@@ -1,5 +1,6 @@
 package menghi.seth.swm36.project3;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.content.ClipData;
@@ -7,7 +8,9 @@ import android.content.ClipDescription;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.content.Intent;
+import android.support.v7.app.ActionBarActivity;
 import android.view.DragEvent;
+import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +36,7 @@ public class SearchActivity extends ListActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
         listView = (ListView) findViewById(android.R.id.list);
         handleIntent(getIntent());
 
@@ -58,18 +62,17 @@ public class SearchActivity extends ListActivity {
         }
         adapter = new ShoeListAdapter(this, shoes);
         listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new ListView.OnItemClickListener() {
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 String value = adapter.getItem(position).name;
                 ClipData.Item item = new ClipData.Item((CharSequence) value);
                 String[] mimeType =  {ClipDescription.MIMETYPE_TEXT_PLAIN};
                 View.DragShadowBuilder shadow = new View.DragShadowBuilder(view);
                 ClipData clip = new ClipData((CharSequence)value, mimeType, item);
                 view.startDrag(clip, shadow, view, 0);
-                view.setVisibility(View.INVISIBLE);
+                //view.setVisibility(View.INVISIBLE);
+                return true;
             }
         });
     }

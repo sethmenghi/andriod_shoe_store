@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -67,40 +68,42 @@ public class ShoeListAdapter extends BaseAdapter{
         String priceString = "$" + currentShoe.price;
         price.setText(String.valueOf(priceString));
 
-        convertView.setOnDragListener(new View.OnDragListener() {
-            Drawable enterShape = act.getResources().getDrawable(R.drawable.row_bg);
-            Drawable normalShape = act.getResources().getDrawable(R.drawable.row_bg);
-            @Override
-            public boolean onDrag(View v, DragEvent event) {
-                int action = event.getAction();
-                switch (event.getAction()) {
-                    case DragEvent.ACTION_DRAG_STARTED:
-                        // do nothing
-                        break;
-                    case DragEvent.ACTION_DRAG_ENTERED:
-                        v.setBackground(enterShape);
-                        break;
-                    case DragEvent.ACTION_DRAG_EXITED:
-                        v.setBackground(normalShape);
-                        break;
-                    case DragEvent.ACTION_DROP:
-                        // Dropped, reassign View to ViewGroup
-                        View view = (View) event.getLocalState();
-                        ViewGroup owner = (ViewGroup) view.getParent();
-                        owner.removeView(view);
-                        RelativeLayout container = (RelativeLayout) v;
-                        container.addView(view);
-                        view.setVisibility(View.VISIBLE);
-                        break;
-                    case DragEvent.ACTION_DRAG_ENDED:
-                        v.setBackground(normalShape);
-                    default:
-                        break;
-                }
-                return true;
-            }
-        });
-
+        img.setOnDragListener(new ShoeDragListener());
         return convertView;
+    }
+
+    public class ShoeDragListener implements View.OnDragListener {
+        Drawable enterShape = act.getResources().getDrawable(R.drawable.row_bg);
+        Drawable normalShape = act.getResources().getDrawable(R.drawable.row_bg);
+
+        @Override
+        public boolean onDrag(View v, DragEvent event) {
+            int action = event.getAction();
+            switch (action) {
+                case DragEvent.ACTION_DRAG_STARTED:
+                    // do nothing
+                    break;
+                case DragEvent.ACTION_DRAG_ENTERED:
+                    v.setBackground(enterShape);
+                    break;
+                case DragEvent.ACTION_DRAG_EXITED:
+                    v.setBackground(normalShape);
+                    break;
+                case DragEvent.ACTION_DROP:
+                    // Dropped, reassign View to ViewGroup
+                    View view = (View) event.getLocalState();
+                    ViewGroup parent = (ViewGroup) view.getParent();
+                    parent.removeView(view);
+                    LinearLayout container = (LinearLayout) v;
+                    container.addView(view);
+                    view.setVisibility(View.VISIBLE);
+                    break;
+                case DragEvent.ACTION_DRAG_ENDED:
+                    v.setBackground(normalShape);
+                default:
+                    break;
+            }
+            return true;
+        }
     }
 }

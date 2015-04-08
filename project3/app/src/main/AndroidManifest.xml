@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="menghi.seth.swm36.project3" >
+
     <!-- Icon from https://itunes.apple.com/us/app/shoe-collectors-manage-organize/id478402159?mt=8 -->
     <application
         android:allowBackup="true"
@@ -15,8 +16,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".SearchActivity" >
+        <activity android:name=".SearchActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
